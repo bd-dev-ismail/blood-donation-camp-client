@@ -1,10 +1,7 @@
 import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import AddEvents from './AddEvents';
+import { Link } from 'react-router-dom';
 import './AdminLayout.css'
 import { FaPlus, FaUsers } from "react-icons/fa";
-import DonnerList from './DonnerList';
-import Donation from '../Donation/Donation';
 const AdminLayout = () => {
     return (
       <div className=" container mx-auto my-36">
