@@ -1,7 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { AuthContext } from '../context/AuthProvider';
 
 const Register = () => {
+  const { register } = useContext(AuthContext);
+  const handalRegister = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+    register(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        form.reset();
+        toast.success("Successfully Register!");
+      })
+      .catch((err) => console.log(err.message));
+  }
     return (
       <div className="flex justify-center items-center my-20">
         <div className="flex flex-col max-w-md p-6 rounded-md sm:p-10 border border-red-400 dark:bg-gray-900 dark:text-gray-100">
@@ -10,13 +29,14 @@ const Register = () => {
             <p className="text-sm dark:text-gray-400">Create a account</p>
           </div>
           <form
-            novalidate=""
+          onSubmit={handalRegister}
+            
             action=""
             className="space-y-12 ng-untouched ng-pristine ng-valid"
           >
             <div className="space-y-4">
               <div>
-                <label for="name" className="block mb-2 text-sm">
+                <label htmlFor="name" className="block mb-2 text-sm">
                   Your Name
                 </label>
                 <input
@@ -28,7 +48,7 @@ const Register = () => {
                 />
               </div>
               <div>
-                <label for="email" className="block mb-2 text-sm">
+                <label htmlFor="email" className="block mb-2 text-sm">
                   Email address
                 </label>
                 <input
@@ -41,7 +61,7 @@ const Register = () => {
               </div>
               <div>
                 <div className="flex justify-between mb-2">
-                  <label for="password" className="text-sm">
+                  <label htmlFor="password" className="text-sm">
                     Password
                   </label>
                   
@@ -58,7 +78,7 @@ const Register = () => {
             <div className="space-y-2">
               <div>
                 <button
-                  type="button"
+                  type="submit"
                   className="w-full px-8 py-3 font-semibold rounded-md btn btn-error"
                 >
                   Register

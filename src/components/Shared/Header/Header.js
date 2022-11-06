@@ -6,8 +6,8 @@ const Header = () => {
      const [isMenuOpen, setIsMenuOpen] = useState(false);
      const {user} = useContext(AuthContext);
     return (
-      <div className="px-4 py-5 mx-auto container md:px-24 lg:px-8">
-        <div className="relative flex items-center justify-between">
+      <div className="px-4 bg-gray-200 py-5 md:px-24 lg:px-8">
+        <div className="relative flex items-center justify-between  mx-auto container">
           <Link
             to="/"
             aria-label="Company"
@@ -30,7 +30,7 @@ const Header = () => {
                 Home
               </Link>
             </li>
-            
+
             <li>
               <Link
                 to="/donation"
@@ -115,7 +115,7 @@ const Header = () => {
                         title="Company"
                         className="inline-flex items-center"
                       >
-                        <img src={logo} alt="" className='w-12 h-12'/>
+                        <img src={logo} alt="" className="w-12 h-12" />
                         <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
                           Blood Donation Camp
                         </span>
