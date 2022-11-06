@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../../assets/logo.png';
+import { AuthContext } from '../../context/AuthProvider';
 const Header = () => {
      const [isMenuOpen, setIsMenuOpen] = useState(false);
+     const {user} = useContext(AuthContext);
     return (
       <div className="px-4 py-5 mx-auto container md:px-24 lg:px-8">
         <div className="relative flex items-center justify-between">
@@ -28,6 +30,7 @@ const Header = () => {
                 Home
               </Link>
             </li>
+            
             <li>
               <Link
                 to="/donation"
@@ -60,7 +63,7 @@ const Header = () => {
             </li>
             <li>
               <Link
-                to="/blog"
+                to="/register"
                 className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md btn btn-error"
                 aria-label="Sign up"
                 title="Sign up"
@@ -70,7 +73,7 @@ const Header = () => {
             </li>
             <li>
               <Link
-                to="/blog"
+                to="/adminlayout"
                 className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md btn "
                 aria-label="Sign up"
                 title="Sign up"

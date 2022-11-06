@@ -1,8 +1,30 @@
 import React from 'react';
+import { FaPlus, FaUsers } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const DonnerList = () => {
     return (
-      <div className='container mx-auto'>
+      <div className="container mx-auto custom-grid my-30">
+        <div className="my-5 border border-red-500 p-3 bg-base-200">
+          <Link to="/addDonation">
+            <button
+              className="btn btn-link text-xl "
+              style={{ textDecoration: "none" }}
+            >
+              <FaPlus className="mr-2" />
+              Add Donation
+            </button>
+          </Link>
+          <Link to="/donnerList">
+            <button
+              className="btn btn-link text-xl"
+              style={{ textDecoration: "none" }}
+            >
+              <FaUsers className="mr-2" />
+              Donner List
+            </button>
+          </Link>
+        </div>
         <div className="overflow-x-auto ">
           <table className="table table-compact w-full">
             <thead>

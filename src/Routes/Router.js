@@ -8,6 +8,7 @@ import ErrorPage from "../components/ErrorPage/ErrorPage";
 import Events from "../components/Events/Events";
 import Home from "../components/Home/Home";
 import Register from "../components/LogIn/Register";
+import SignIn from "../components/LogIn/SignIn";
 import Main from "../layout/Main";
 
 export const router = createBrowserRouter([
@@ -29,26 +30,30 @@ export const router = createBrowserRouter([
         element: <Events></Events>,
       },
       {
-        path: '/blog',
-        element: <Blog></Blog>
-      },
-      {
-        path: '/addDonation',
-        element: <AddEvents></AddEvents>
-      },
-      
-      {
-        path: '/donnerList', 
-        element: <DonnerList/>
+        path: "/blog",
+        element: <Blog></Blog>,
       },
       {
         path: '/adminlayout',
-        element: <AdminLayout/>,
+        element: <AdminLayout/>
       },
       {
-        path: '/register',
-        element: <Register/>
-      }
+        path: '/donnerlist',
+        element: <DonnerList/>
+      },
+      {
+        path: '/addDonation',
+        element: <AddEvents/>
+      },
+      {
+        path: "/register",
+        element: <Register />,
+      },
+      {
+        path: "/signin",
+        element: <SignIn />,
+      },
     ],
   },
+
 ]);

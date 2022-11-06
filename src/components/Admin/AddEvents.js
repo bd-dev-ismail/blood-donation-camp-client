@@ -1,8 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FaPlus, FaUsers } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import DatePicker from "react-datepicker";
 
+import "react-datepicker/dist/react-datepicker.css";
 const AddEvents = () => {
+   const [startDate, setStartDate] = useState(new Date());
     return (
-      <div>
+      <div className="container mx-auto custom-grid my-30">
+        <div className="my-5 border border-red-500 p-3 bg-base-200">
+          <Link to="/addDonation">
+            <button
+              className="btn btn-link text-xl "
+              style={{ textDecoration: "none" }}
+            >
+              <FaPlus className="mr-2" />
+              Add Donation
+            </button>
+          </Link>
+          <Link to="/donnerList">
+            <button
+              className="btn btn-link text-xl"
+              style={{ textDecoration: "none" }}
+            >
+              <FaUsers className="mr-2" />
+              Donner List
+            </button>
+          </Link>
+        </div>
         <section className="p-6 dark:bg-gray-800 dark:text-gray-50">
           <form className="container flex flex-col mx-auto space-y-12 ng-untouched ng-pristine ng-valid">
             <fieldset className=" gap-6 p-6 rounded-md shadow-sm dark:bg-gray-900">
@@ -32,12 +57,20 @@ const AddEvents = () => {
                   <label htmlFor="date" className="text-sm">
                     Dontaion Date
                   </label>
-                  <input
+                  {/* <input
                     id="date"
                     type="text"
                     placeholder="Donation Date"
                     className="input input-bordered w-full"
-                  />
+                  /> */}
+                  <div className="">
+                    
+                    <DatePicker
+                      className="input input-bordered w-full flex items-center"
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date)}
+                    />
+                  </div>
                 </div>
                 <div className="col-span-full sm:col-span-3">
                   <label htmlFor="desc" className="text-sm">

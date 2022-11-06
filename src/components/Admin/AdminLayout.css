@@ -3,3 +3,14 @@
     grid-template-columns: 1fr 4fr !important;
     gap: 20px !important;
 }
+
+@media (max-width: 576px) {
+    .custom-grid{
+        display: block !important;
+    }
+}
+@media (max-width: 991.98px) {
+    .custom-grid{
+        display: block !important;
+    }
+}
