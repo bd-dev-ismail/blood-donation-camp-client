@@ -1,10 +1,19 @@
 import React, { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import logo from '../../../assets/logo.png';
 import { AuthContext } from '../../context/AuthProvider';
 const Header = () => {
      const [isMenuOpen, setIsMenuOpen] = useState(false);
-     const {user} = useContext(AuthContext);
+     const navigate = useNavigate();
+     const { user, logOut } = useContext(AuthContext);
+     const handalSignOut = ()=> {
+      logOut()
+      .then(()=> {
+        navigate('/')
+        toast.warning('Successfully LogOut');
+      }).catch(err => toast.error(err.message))
+     }
     return (
       <div className="px-4 bg-gray-200 py-5 md:px-24 lg:px-8">
         <div className="relative flex items-center justify-between  mx-auto container">
@@ -61,16 +70,35 @@ const Header = () => {
                 Blog
               </Link>
             </li>
-            <li>
-              <Link
-                to="/register"
-                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md btn btn-error"
-                aria-label="Sign up"
-                title="Sign up"
-              >
-                Register
-              </Link>
-            </li>
+            {user?.uid ? (
+              <>
+                <li>
+                  <Link
+                  onClick={handalSignOut}
+                    
+                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md btn btn-error"
+                    aria-label="Sign up"
+                    title="Sign up"
+                  >
+                    Signout
+                  </Link>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link
+                    to="/signin"
+                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md btn btn-error"
+                    aria-label="Sign up"
+                    title="Sign up"
+                  >
+                    Signin
+                  </Link>
+                </li>
+              </>
+            )}
+
             <li>
               <Link
                 to="/adminlayout"

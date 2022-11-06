@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../context/AuthProvider';
 
 const Register = () => {
-  const { register } = useContext(AuthContext);
+  const { register, withGoogle } = useContext(AuthContext);
+  const navigate =useNavigate();
   const handalRegister = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -17,9 +18,21 @@ const Register = () => {
         const user = result.user;
         console.log(user);
         form.reset();
+        navigate("/");
         toast.success("Successfully Register!");
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => toast.error(err.message));
+  };
+  //with google
+  const handalGoogle = ()=> {
+    withGoogle()
+    .then(result => {
+      const user = result.user;
+      console.log(user);
+      navigate('/')
+      toast.success('Successfully Register With Google!')
+    })
+    .catch(err => toast.error(err.message))
   }
     return (
       <div className="flex justify-center items-center my-20">
@@ -29,8 +42,7 @@ const Register = () => {
             <p className="text-sm dark:text-gray-400">Create a account</p>
           </div>
           <form
-          onSubmit={handalRegister}
-            
+            onSubmit={handalRegister}
             action=""
             className="space-y-12 ng-untouched ng-pristine ng-valid"
           >
@@ -64,7 +76,6 @@ const Register = () => {
                   <label htmlFor="password" className="text-sm">
                     Password
                   </label>
-                  
                 </div>
                 <input
                   type="password"
@@ -85,18 +96,27 @@ const Register = () => {
                 </button>
               </div>
               <p className="px-6 text-sm text-center dark:text-gray-400">
-                already have a account?
+                If you have already a account?
                 <Link
                   rel="noopener noreferrer"
                   to="/signin"
                   className="hover:underline dark:text-violet-400"
                 >
-                  Sign in
+                  Please Sign in
                 </Link>
                 .
               </p>
             </div>
           </form>
+          <div>
+            <button
+            onClick={handalGoogle}
+              type="button"
+              className="w-full mt-3 px-8 py-3 font-semibold rounded-md btn btn-warning"
+            >
+              Register With Google
+            </button>
+          </div>
         </div>
       </div>
     );
