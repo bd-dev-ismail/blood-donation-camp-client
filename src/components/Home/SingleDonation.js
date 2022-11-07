@@ -12,10 +12,13 @@ const SingleDonation = ({donation}) => {
         <div className="card-body">
           <h2 className="card-title">{location}</h2>
           <div className="card-actions justify-end">
-            <Link to={`/events/${_id}`}>
-              <button className="btn btn-link absolute left-[50%] bottom-0 text-warning" style={{textDecoration: 'none'}}>
+            <Link to={`/donnerform/${_id}`}>
+              <button
+                className="btn btn-link absolute left-[50%] bottom-0 text-warning"
+                style={{ textDecoration: "none" }}
+              >
                 {" "}
-                Donate Blood <FaLongArrowAltRight className='text-xl ml-2'/>
+                Donate Blood <FaLongArrowAltRight className="text-xl ml-2" />
               </button>
             </Link>
           </div>

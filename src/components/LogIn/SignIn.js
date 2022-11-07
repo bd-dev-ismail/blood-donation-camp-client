@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../context/AuthProvider';
 
 const SignIn = () => {
   const { singin, withGoogle } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const handalSignIn = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -16,7 +18,7 @@ const SignIn = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        navigate("/");
+        navigate(from, {replace: true});
         form.reset();
         toast.success("Successfully Signin!");
       })
@@ -28,7 +30,7 @@ const SignIn = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        navigate("/");
+        navigate(from, {replace: true});
         toast.success("Successfully Register With Google!");
       })
       .catch((err) => toast.error(err.message));
@@ -96,7 +98,7 @@ const SignIn = () => {
               <Link
                 rel="noopener noreferrer"
                 to="/register"
-                className="hover:underline dark:text-violet-400"
+                className="hover:underline text-secondary"
               >
                 Register Now
               </Link>

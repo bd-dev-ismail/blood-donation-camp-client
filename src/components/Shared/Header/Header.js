@@ -47,7 +47,7 @@ const Header = () => {
                 title="Our product"
                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
               >
-                Distric
+                Districts
               </Link>
             </li>
             <li>
@@ -74,8 +74,7 @@ const Header = () => {
               <>
                 <li>
                   <Link
-                  onClick={handalSignOut}
-                    
+                    onClick={handalSignOut}
                     className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md btn btn-error"
                     aria-label="Sign up"
                     title="Sign up"

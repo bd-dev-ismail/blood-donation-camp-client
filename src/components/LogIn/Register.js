@@ -100,7 +100,7 @@ const Register = () => {
                 <Link
                   rel="noopener noreferrer"
                   to="/signin"
-                  className="hover:underline dark:text-violet-400"
+                  className="hover:underline text-secondary"
                 >
                   Please Sign in
                 </Link>
