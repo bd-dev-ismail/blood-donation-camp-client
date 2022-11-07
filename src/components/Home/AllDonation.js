@@ -3,13 +3,20 @@ import SingleDonation from './SingleDonation';
 
 const AllDonation = () => {
     const [donations , setDonations] = useState([]);
-   
+    const [count, setCount] = useState(0);
+    const [size, setSize] = useState(5);
+    const [page, setPage] = useState(0);
+    const pages = Math.ceil(count/size);
+    
     useEffect(()=>{
-        fetch("http://localhost:5000/donation")
-        .then(res => res.json())
-        .then(data => setDonations(data))
-        .catch(err=> console.log(err))
-    },[])
+        fetch(`https://blood-donation-camp-server.vercel.app/donation?page=${page}&size=${size}`)
+          .then((res) => res.json())
+          .then((data) => {
+            setDonations(data.donation);
+            setCount(data.count);
+          })
+          .catch((err) => console.log(err));
+    },[page, size])
     return (
       <div className="container mx-auto text-center">
         <div className="text-cetner">
@@ -29,6 +36,35 @@ const AllDonation = () => {
               donation={donation}
             ></SingleDonation>
           ))}
+        </div>
+        <div className="my-10">
+          <p className="text-center text-3xl font-semibold my-5">
+            Current Page Number is {page} & Data Size is {size}
+          </p>
+          <div>
+            <button onClick={()=> setPage(page -1)} className='btn btn-primary mr-5'>Prev</button>
+            <button onClick={()=> setPage(page +1)} className='btn btn-secondary'>Next</button>
+          </div>
+          {[...Array(pages).keys()].map((number) => (
+            <button
+              onClick={()=> setPage(number)}
+              className="btn ml-5"
+              key={number}
+            >
+              {number}
+            </button>
+          ))}
+          <select
+            onChange={(e) => setSize(e.target.value)}
+            className={`btn btn-warning ml-5 my-5`}
+          >
+            <option selected value="5">
+              5
+            </option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
         </div>
       </div>
     );

@@ -37,7 +37,7 @@ const DonnerForm = () => {
           message,
         };
         console.log(event);
-        fetch("http://localhost:5000/events", {
+        fetch("https://blood-donation-camp-server.vercel.app/events", {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

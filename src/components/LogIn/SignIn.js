@@ -18,20 +18,53 @@ const SignIn = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        navigate(from, {replace: true});
-        form.reset();
-        toast.success("Successfully Signin!");
+        const CurrentUser = {
+          email: user?.email,
+        }
+        fetch("https://blood-donation-camp-server.vercel.app/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(CurrentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            //notbest pratices
+            localStorage.setItem('blood-donaiton', data.token);
+            navigate(from, { replace: true });
+            form.reset();
+            toast.success("Successfully Signin!");
+          });
+        
       })
-      .catch((err) => console.log(err));
+      .then((err) => console.log(err));
   };
   //with google
   const handalGoogle = () => {
     withGoogle()
       .then((result) => {
         const user = result.user;
-        console.log(user);
-        navigate(from, {replace: true});
-        toast.success("Successfully Register With Google!");
+        const CurrentUser = {
+          email: user?.email,
+        };
+        fetch("https://blood-donation-camp-server.vercel.app/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(CurrentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            //notbest pratices
+            localStorage.setItem("blood-donaiton", data.token);
+            navigate(from, { replace: true });
+            
+            toast.success("Successfully Login With Google!");
+          });
       })
       .catch((err) => toast.error(err.message));
   };

@@ -44,7 +44,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/donation/${params.id}`),
+          fetch(`https://blood-donation-camp-server.vercel.app/donation/${params.id}`),
       },
       {
         path: "/blog",

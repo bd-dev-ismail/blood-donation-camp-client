@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { AuthContext } from '../context/AuthProvider';
 
 const Register = () => {
   const { register, withGoogle } = useContext(AuthContext);
   const navigate =useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const handalRegister = (e) => {
     e.preventDefault();
     const form = e.target;
@@ -17,9 +19,25 @@ const Register = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        form.reset();
-        navigate("/");
-        toast.success("Successfully Register!");
+        const CurrentUser = {
+          email: user?.email,
+        };
+        fetch("https://blood-donation-camp-server.vercel.app/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(CurrentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            //notbest pratices
+            localStorage.setItem("blood-donaiton", data.token);
+            navigate(from, { replace: true });
+            form.reset();
+            toast.success("Successfully Signin!");
+          });
       })
       .catch((err) => toast.error(err.message));
   };
@@ -28,9 +46,25 @@ const Register = () => {
     withGoogle()
     .then(result => {
       const user = result.user;
-      console.log(user);
-      navigate('/')
-      toast.success('Successfully Register With Google!')
+      const CurrentUser = {
+        email: user?.email,
+      };
+      fetch("https://blood-donation-camp-server.vercel.app/jwt", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(CurrentUser),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          //notbest pratices
+          localStorage.setItem("blood-donaiton", data.token);
+          navigate(from, { replace: true });
+         
+          toast.success("Successfully Register With Google!");
+        });
     })
     .catch(err => toast.error(err.message))
   }

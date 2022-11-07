@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 
-const SingleEvent = ({ eventRow, handalDelete }) => {
-  const { event, address, email, name, bloodGroup, eventLocation, _id } =
-    eventRow;
+const SingleEvent = ({ eventRow, handalDelete, updateStatus }) => {
+  const {
+    event,
+    address,
+    email,
+    name,
+    bloodGroup,
+    eventLocation,
+    _id,
+    status,
+  } = eventRow;
   const [donation, setDonation] = useState({});
   useEffect(() => {
-    fetch(`http://localhost:5000/donation/${event}`)
+    fetch(`https://blood-donation-camp-server.vercel.app/donation/${event}`)
       .then((res) => res.json())
       .then((data) => setDonation(data));
   }, [event]);
@@ -40,7 +48,10 @@ const SingleEvent = ({ eventRow, handalDelete }) => {
       <td>{eventLocation}</td>
       <td>{email}</td>
       <th>
-        <button className="btn btn-ghost btn-xs">Confrim</button>
+        <button onClick={() => updateStatus(_id)} className="btn btn-ghost btn-xs">
+          {status ? status :  'Pending'}
+       
+        </button>
       </th>
     </tr>
   );
