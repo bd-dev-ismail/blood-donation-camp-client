@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
             <Events></Events>
           </PrivateRoute>
         ),
-      },
+      }, 
       {
         path: "/donnerform/:id",
         element: (
